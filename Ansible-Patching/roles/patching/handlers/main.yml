@@ -1,7 +1,0 @@
----
-# handlers file for patching
-
-- name: Rebooting system after patching if required 
-  ansible.builtin.reboot:
-    reboot_timeout: "{{reboot_timeout}}"
-  when: patch_reboot_required
