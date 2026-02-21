@@ -1,0 +1,11 @@
+---
+
+- name: Starting the patching stages
+  hosts: all
+  gather_facts: true
+  become: true
+  roles:
+   - precheck
+   - patching
+   - postcheck
+   - reporting

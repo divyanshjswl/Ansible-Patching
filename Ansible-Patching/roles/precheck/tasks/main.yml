@@ -1,0 +1,26 @@
+---
+# tasks file for precheck
+
+
+- name: Running Patching precheck
+  ansible.builtin.debug:
+    msg: "Starting the pre-check activity"
+- name: Gathering the service facts
+  ansible.builtin.service_facts:
+- name: Displaying if the services are running on the server
+  ansible.builtin.debug:
+    msg: "{{ item }} service status before patching: {{ ansible_facts.services[item + '.service'].state | default('Not Installed') }}"
+  with_list: "{{services}}"
+- name: Checking available disk space on the server 
+  ansible.builtin.shell:
+    cmd:  df -m / | awk 'NR==2 {print $4}'
+  register: disk_space
+  failed_when: disk_space.stdout|int < min_disk_space_mb
+- name: Capture current kernel version
+  ansible.builtin.command:
+    cmd: uname -r
+  register: kernel_version_before_patching
+- name: Record uptime before patching
+  ansible.builtin.command: 
+    cmd: uptime -p
+  register: uptime_info_before_patching

@@ -1,0 +1,6 @@
+---
+# vars file for reporting
+
+webserver:
+  Debian: apache2
+  RedHat: httpd

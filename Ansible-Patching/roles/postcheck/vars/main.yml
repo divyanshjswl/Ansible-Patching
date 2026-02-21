@@ -1,0 +1,8 @@
+---
+# vars file for postcheck
+
+services:
+  - apache2
+  - httpd
+  - mysqld
+  - ssh
