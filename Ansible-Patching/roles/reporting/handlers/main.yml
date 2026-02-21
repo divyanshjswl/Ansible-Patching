@@ -1,0 +1,8 @@
+---
+# handlers file for reporting
+
+
+- name: Restarting apache2 service
+  ansible.builtin.service:
+    name: "{{webserver.get(ansible_facts.os_family)}}"
+    state: restarted
