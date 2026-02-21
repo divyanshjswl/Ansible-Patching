@@ -1,4 +1,0 @@
-reboot_timeout: 600
-min_disk_space_mb: 1024
-patch_reboot_required: false
-

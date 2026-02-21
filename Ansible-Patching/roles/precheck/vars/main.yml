@@ -1,8 +1,0 @@
----
-# vars file for precheck
-
-services:
-  - apache2
-  - ssh
-  - httpd
-  - mysqld
