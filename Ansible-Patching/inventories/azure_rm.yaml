@@ -1,0 +1,12 @@
+plugin: azure.azcollection.azure_rm
+
+auth_source: cli, #msi , auto, credential_file, env
+include_vm_resource_groups:
+    - ansible-rg-1
+    - '*'
+keyed_groups:
+  - key: "(tags | default({})).Environment | default('none')"
+    prefix: ""
+    separator: ""
+include_host_filters:
+  - powerstate == 'running'

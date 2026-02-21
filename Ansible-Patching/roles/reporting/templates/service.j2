@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Post Patching Service Report</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+        }
+        table {
+            border-collapse: collapse;
+            width: 60%;
+            margin: 20px 0;
+        }
+        th, td {
+            border: 1px solid #333;
+            padding: 10px;
+            text-align: center;
+        }
+        th {
+            background-color: #2F4F4F;
+            color: white;
+        }
+        .running {
+            background-color: #90EE90;
+        }
+        .stopped {
+            background-color: #FFCCCB;
+        }
+        .notinstalled {
+            background-color: #D3D3D3;
+        }
+    </style>
+</head>
+<body>
+
+<h2>Service Status Report - {{ inventory_hostname }}</h2>
+
+<table>
+    <tr>
+        <th>Service Name</th>
+        <th>Status</th>
+    </tr>
+
+    {% for service in services %}
+        {% set svc_name = service + '.service' %}
+        {% if svc_name in ansible_facts.services %}
+            {% set state = ansible_facts.services[svc_name].state %}
+            <tr class="{{ 'running' if state == 'running' else 'stopped' }}">
+                <td>{{ service }}</td>
+                <td>{{ state }}</td>
+            </tr>
+        {% else %}
+            <tr class="notinstalled">
+                <td>{{ service }}</td>
+                <td>Not Installed</td>
+            </tr>
+        {% endif %}
+    {% endfor %}
+
+</table>
+
+</body>
+</html>
